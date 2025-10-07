@@ -1,0 +1,5 @@
+{
+  "name": "Open Bloc Vic Manager",
+  "description": "A web platform to manage and score a bouldering competition, built with React and Supabase. It allows real-time tracking of participant scores, block management, and role-based access for participants, arbiters, and administrators.",
+  "requestFramePermissions": []
+}
