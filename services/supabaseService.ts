@@ -1,3 +1,4 @@
+
 import { User, Role, Gender, Category, Difficulty, BlockColor, Block, BlockCompletion, BlockAttempt, LeaderboardEntry } from '../types';
 
 export interface AuthCredentials {
@@ -193,6 +194,10 @@ export const mockSupabaseClient = {
             await delay(150);
             return getFromStorage<BlockCompletion[]>(COMPLETIONS_KEY, []).filter(c => c.userId === userId);
         },
+        async getAllCompletions(): Promise<BlockCompletion[]> {
+            await delay(200);
+            return getFromStorage<BlockCompletion[]>(COMPLETIONS_KEY, []);
+        },
         async addCompletion(blockId: number): Promise<BlockCompletion> {
             await delay(250);
             const user = getCurrentUser();
@@ -229,6 +234,10 @@ export const mockSupabaseClient = {
             const allAttempts = getFromStorage<BlockAttempt[]>(ATTEMPTS_KEY, []);
             return allAttempts.filter(a => a.userId === userId);
         },
+        async getAllAttempts(): Promise<BlockAttempt[]> {
+            await delay(200);
+            return getFromStorage<BlockAttempt[]>(ATTEMPTS_KEY, []);
+        },
         async addAttempt(data: Omit<BlockAttempt, 'id' | 'attemptedAt'>): Promise<BlockAttempt> {
             await delay(250);
             const attempts = getFromStorage<BlockAttempt[]>(ATTEMPTS_KEY, []);
@@ -257,6 +266,10 @@ export const mockSupabaseClient = {
     },
     
     users: {
+        async getAllParticipants(): Promise<User[]> {
+            await delay(200);
+            return getFromStorage<User[]>(USERS_KEY, []).filter(u => u.role === Role.Participant);
+        },
         async search(term: string): Promise<User[]> {
             await delay(200);
             if (!term) return [];

@@ -3,6 +3,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { Role } from '../../types';
+import ThemeToggle from './ThemeToggle';
 
 const Header: React.FC = () => {
   const { user, logout, loading } = useAuth();
@@ -15,7 +16,7 @@ const Header: React.FC = () => {
     }`;
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-md">
+    <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-40">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -24,6 +25,7 @@ const Header: React.FC = () => {
             </Link>
             <nav className="hidden md:block ml-10">
               <div className="flex items-baseline space-x-4">
+                 <NavLink to="/analytics" className={navLinkClasses}>Resultats</NavLink>
                 {user && (
                   <>
                     <NavLink to="/" className={navLinkClasses}>Blocs</NavLink>
@@ -38,11 +40,12 @@ const Header: React.FC = () => {
           </div>
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
+              <ThemeToggle />
               {loading ? (
-                <div className="animate-pulse h-8 w-24 bg-gray-300 dark:bg-gray-700 rounded"></div>
+                <div className="animate-pulse h-8 w-24 bg-gray-300 dark:bg-gray-700 rounded ml-4"></div>
               ) : user ? (
                 <>
-                  <NavLink to="/profile" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white mr-4 text-sm">
+                  <NavLink to="/profile" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white mr-4 text-sm ml-4">
                     {user.fullName}
                   </NavLink>
                   <button
@@ -53,7 +56,7 @@ const Header: React.FC = () => {
                   </button>
                 </>
               ) : (
-                <NavLink to="/auth" className={navLinkClasses}>
+                <NavLink to="/auth" className={`${navLinkClasses({isActive: false})} ml-4`}>
                   Login
                 </NavLink>
               )}
